@@ -78,12 +78,13 @@ function validateEmail(em) {
 
 function errorMessage(errorElm, msg) {
   errorElm.textContent = msg;
+  errorElm.className = 'error2'
 }
 
 function modifyMessage(label, error, element, msg, msg2, color) {
   label.className = msg;
   error.textContent = msg2;
-  error.style.color = color;
+  error.className = color;
   if (element == email) {
     element.setCustomValidity(msg);
   }
@@ -248,9 +249,9 @@ fieldset.addEventListener('input', (e) => {
     if (validateEmail(userEmail) == false) {
       errorMessage(errorEmail, "Are you sure that's an email?");
     } else if (validateEmail(userEmail)) {
-      modifyMessage(emailLabel, errorEmail, email, '', 'Now we are talking!', 'green')
+      modifyMessage(emailLabel, errorEmail, email, '', 'Now we are talking!', 'error3')
     }
-  };
+  }
 });
 
 
@@ -258,7 +259,7 @@ fieldset.addEventListener('input', (e) => {
 activities.addEventListener('click', (e) => {
   if (e.target.tagName == 'INPUT') {
     if (e.target.checked && labelActivities.className == 'error') {
-      modifyMessage(labelActivities, errorActivities, listActivities, '', 'Attaboy!', 'green')
+      modifyMessage(labelActivities, errorActivities, listActivities, '', 'Attaboy!', 'error3')
     }
   }
 });
@@ -294,11 +295,16 @@ register.addEventListener('click', (e) => {
     let userCard = ccNum.value;
     let userZip = ccZip.value;
     let userCvv = cvv.value;
-    if (name.value == '') {
+    let userEmail = email.value;
+    let noBlanks = /\s/.test(name.value);
+    if (name.value == '' || noBlanks) {
       changeStatus(nameLabel, errorName, 'error', 'Dude...come on! Write a name', name, event, false);
     }
     if (email.value == '') {
       changeStatus(emailLabel, errorEmail, 'error', "Don't forget about the email", email, event, false);
+    }
+    if (!validateEmail(userEmail)) {
+      e.preventDefault();
     }
     for (let i = 0; i < listActivities.length; i++) {
       let act = listActivities[i];

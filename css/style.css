@@ -206,6 +206,13 @@ input:invalid {
   color: #CC0000;
   font-family: cursive;
   font-weight: bold;
+  
+}
+
+.error3 {
+  color: green;
+  font-family: cursive;
+  font-weight: bold;
 }
 
 
